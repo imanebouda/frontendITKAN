@@ -72,15 +72,14 @@
 </p-card>
 
 
-
-
-<p-dialog [(visible)]="showDialog" [modal]="true" [resizable]="false" style="max-width: 90vw;" header="Constat">
-    <div class="dropdown-container">
-        <label class="dropdown-title">CONSTAT</label>
+<p-dialog [(visible)]="showDialog" [modal]="true" [resizable]="false" styleClass="custom-dialog-style" header="Constat">
+    <div class="custom-dialog-content">
+        <!-- Contenu de la fenêtre avec une apparence différente -->
+        <label class="custom-dialog-label">CONSTAT</label>
         <p-dropdown [options]="options" [(ngModel)]="selectedOption" placeholder="Sélectionnez une option"
-                    [style]="{ 'max-height': '300px' }">
+                    [style]="{ 'max-height': '200px', 'overflow-y': 'auto' }">
         </p-dropdown>
-        <button>Enregistrer</button>
+        <button class="custom-dialog-button" >Enregistrer</button>
     </div>
 </p-dialog>
 

@@ -52,10 +52,11 @@ import { TooltipModule } from 'primeng/tooltip';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import {DetailAuditComponent} from "./bo/components/audit/detail-audit/detail-audit.component";
 registerLocaleData(localeFr);
 
 @NgModule({
-    declarations: [AppComponent,AppComponent,UpdateCheckListComponent,ListCheckListComponent, HomeComponent, NotfoundComponent, ProcObjectifsComponent, ProcedureComponent, IndicateurComponent, LeadershipComponent, AddAuditComponent, ListAuditComponent, UpdateAuditComponent, AddConstatComponent, ListConstatComponent, UpdateConstatComponent, AddSiteAuditComponent, ListSiteAuditComponent, UpdateSiteAuditComponent, UpdateCheckListComponent, AddCheckListComponent, ListCheckListComponent],
+    declarations: [AppComponent,AppComponent,UpdateCheckListComponent,ListCheckListComponent, HomeComponent, NotfoundComponent, ProcObjectifsComponent, ProcedureComponent, IndicateurComponent, LeadershipComponent, AddAuditComponent, ListAuditComponent, UpdateAuditComponent, AddConstatComponent, ListConstatComponent, UpdateConstatComponent, AddSiteAuditComponent, ListSiteAuditComponent, UpdateSiteAuditComponent, UpdateCheckListComponent, AddCheckListComponent, ListCheckListComponent,DetailAuditComponent],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
@@ -90,7 +91,7 @@ registerLocaleData(localeFr);
         NodeService,
         PhotoService,
         MessageService,
-        
+
     ],
     bootstrap: [AppComponent],
     schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],

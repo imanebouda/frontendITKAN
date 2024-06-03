@@ -131,11 +131,22 @@ export class AuditService {
       .pipe(
         catchError(this.handleError)
       );
+
   }
 
 
+    getAuditsByDate(date:string) {
+        const parsedDate = new Date(date);
+        const formattedDate = parsedDate.toISOString();
+        return this.http.get<AuditModel[]>(`${this.apiUrl}/byDate?date=${formattedDate}`);
 
 
+    }
+
+
+    getAuditsByType(type: string) {
+        return this.http.get<AuditModel[]>(`${this.apiUrl}/byType?type=${type}`);
+    }
 
 
 

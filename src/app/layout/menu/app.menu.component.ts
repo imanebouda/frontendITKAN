@@ -147,15 +147,7 @@ export class AppMenuComponent implements OnInit {
                         ),
                         ispopup:false
                     },
-                    {
-                        label: 'Create Audit',
-                        icon: 'pi pi-users',
-                        routerLink: ['addaudit'],
-                        visible: this.generalService.canActivate(
-                            'Utilisateurs-Consulter'
-                        ),
-                        ispopup:false
-                    },
+
                     {
                         label: 'CheckList',
                         icon: 'pi pi-users',
@@ -167,23 +159,15 @@ export class AppMenuComponent implements OnInit {
                     },
 
                     {
-                        label: 'Sites',
+                        label: 'Paramètres',
                         icon: 'pi pi-cog',
-                        routerLink: ['listSiteAudit'],
+                        routerLink: ['parametrages/liste'],
                         visible: this.generalService.canActivate(
                             'Paramétrages-Consulter'
                         ),
                         ispopup:false
                     },
-                    {
-                        label: 'Constat',
-                        icon: 'pi pi-ban',
-                        routerLink: ['ecart'],
-                        visible: this.generalService.canActivate(
-                            'Utilisateurs-Consulter'
-                        ),
-                        ispopup:false
-                    },
+
 
                 ],
 

@@ -1,0 +1,62 @@
+<div class="container">
+    <div>
+        <h2>Detail Audit</h2>
+    </div>
+    <form>
+        <div class="p-grid p-fluid">
+            <div hidden class="p-col-12">
+                <label for="auditId">ID</label>
+                <input type="number" pInputText [(ngModel)]="currentAudit.id" id="auditId" name="auditId" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="auditName">Nom Audit</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.nomAudit" id="auditName" name="auditName" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="dateCreation">Date Audit</label>
+                <p-calendar [(ngModel)]="currentAudit.dateAudit" id="dateCreation" name="dateCreation" class="form-control" [dateFormat]="'yy-mm-dd'"></p-calendar>
+            </div>
+            <div class="p-col-12">
+                <label for="auditStatus">Status</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.status" id="auditStatus" name="auditStatus" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="auditDescription">Description</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.description" id="auditDescription" name="auditDescription" class="form-control">
+            </div>
+            <div class="p-col-12">
+                <label for="auditType">Type Audit</label>
+                <input type="text" pInputText [(ngModel)]="currentAudit.typeAudit" id="auditType" name="auditType" class="form-control">
+            </div>
+        </div>
+    </form>
+
+
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped" >
+            <thead>
+            <tr>
+                <th>Id Question</th>
+                <th>type constat</th>
+                <th>Statut</th>
+                <th>Constat</th>
+
+                <th class="text-center">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1</td>
+                <td>Rq</td>
+                <td>En cours</td>
+                <td> informations relatives au contrôle</td>
+                <td></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

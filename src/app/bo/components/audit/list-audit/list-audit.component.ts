@@ -3,6 +3,7 @@ import { AuditModel } from "../../../../models/audit.model";
 import { AuditService } from "../../../../services/AuditServices/audit.service";
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Modal } from 'bootstrap';
+import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
 
 @Component({
   selector: 'app-list-audit',
@@ -35,21 +36,55 @@ export class ListAuditComponent {
   }
 
   searchAudits() {
-    // Logic to search audits based on form values
+      const formValues = this.formulaireRecherche.value;
+      const selectedDate: Date = formValues.annee;
+      const selectedType: string = formValues.typeAudit;
+
+      if (selectedDate) {
+          // Convertir la date en une chaîne de caractères au format ISO 8601
+          const formattedDate: string = selectedDate.toISOString();
+
+          // Appeler la méthode getAuditsByDate du service d'audit en passant la date formatée
+          this.auditService.getAuditsByDate(formattedDate).subscribe(
+              audits => {
+                  this.audits = audits;
+                  this.is_loading = false;
+              },
+              error => {
+                  console.error('Error fetching audits by date:', error);
+                  this.is_loading = false;
+              }
+          );
+      } else if (selectedType) {
+          // Appeler la méthode getAuditsByType du service d'audit en passant le type sélectionné
+          this.auditService.getAuditsByType(selectedType).subscribe(
+              audits => {
+                  this.audits = audits;
+                  this.is_loading = false;
+              },
+              error => {
+                  console.error('Error fetching audits by type:', error);
+                  this.is_loading = false;
+              }
+          );
+      } else {
+          // Si aucun filtre n'est sélectionné, charger tous les audits
+          this.loadAudits();
+      }
   }
 
   openAddAuditModal() {
     const modal = new Modal(this.addModal.nativeElement);
     modal.show();
   }
-  
+
   openUpdateDialog(audit: AuditModel): void {
     console.log('Selected checklist:', audit);
     this.selectedAudit = audit;
     const modal = new Modal(this.updateModal.nativeElement);
     modal.show();
   }
-  
+
   closeUpdateDialog(): void {
     const modal = Modal.getInstance(this.updateModal.nativeElement);
     modal.hide();
@@ -58,7 +93,8 @@ export class ListAuditComponent {
   }
 
   clearSearch() {
-    // Logic to clear search filters
+      this.formulaireRecherche.reset();
+      this.loadAudits();
   }
 
   loadAudits(): void {
@@ -91,4 +127,6 @@ export class ListAuditComponent {
     modal.hide();
     this.loadAudits();
   }
+
+    protected readonly dateTimestampProvider = dateTimestampProvider;
 }

@@ -1,19 +1,14 @@
 <p-fieldset legend="Rechercher les Audits" [toggleable]="true">
   <form [formGroup]="formulaireRecherche" (ngSubmit)="searchAudits()">
     <div class="d-flex justify-content-center mb-3">
-      <div class="field col-4 text-center">
-        <label class="mb-2">Type d'Audit</label>
-        <p-dropdown [options]="typeAuditList" formControlName="typeAudit" [filter]="true" placeholder="Sélectionnez un type d'audit">
-          <ng-template let-element pTemplate="item">
-            <div class="flex justify-content-between">
-              <span class="font-12">{{ element?.label }}</span>
-            </div>
-          </ng-template>
-        </p-dropdown>
-      </div>
+        <div class="field col-4 text-center">
+            <label for="typeAudit">Type d'Audit</label>
+            <input id="typeAudit" type="text" formControlName="typeAudit" placeholder="Entrez un type d'audit">
+        </div>
       <div class="field col-4 text-center">
         <label class="mb-2">Année</label>
         <p-calendar formControlName="annee" [yearNavigator]="true" yearRange="2000:2030" placeholder="Sélectionnez une année"></p-calendar>
+
       </div>
     </div>
     <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
@@ -55,7 +50,9 @@
         <div class="cm-action-btn">
           <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="right" (click)="openUpdateDialog(audit)"></i>
           <i pButton pRipple class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right" (click)="deleteAudit(audit)"></i>
-          <i pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info" tooltipPosition="right"></i>
+          <i pButton pRipple class="p-button-rounded p-button-warning" icon="pi pi-info" tooltipPosition="right" [routerLink]="['/detailAudit',audit.id]"></i>
+            <i pButton pRipple class="p-button-rounded p-button-warning" style="background-color: black;" icon="pi pi-cog pi-black" tooltipPosition="right" [routerLink]="['/gestionaudit', audit.id]"></i>
+
         </div>
       </td>
     </tr>
