@@ -7,7 +7,8 @@ import { AuditRoutingModule } from './audit-routing.module'; // Import du fichie
 import { AddAuditComponent } from './add-audit/add-audit.component'; // Import du composant AddAuditComponent
 import { UpdateAuditComponent } from './update-audit/update-audit.component';
 import { GestionAuditComponent } from './gestion-audit/gestion-audit.component';
-import { DropdownComponent } from './dropdown/dropdown.component'; // Import du composant UpdateAuditComponent
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { ProgrammeAuditComponent } from './programme-audit/programme-audit.component'; // Import du composant UpdateAuditComponent
 
 @NgModule({
     declarations: [
@@ -15,7 +16,8 @@ import { DropdownComponent } from './dropdown/dropdown.component'; // Import du 
 
     
     GestionAuditComponent,
-           DropdownComponent
+           DropdownComponent,
+           ProgrammeAuditComponent
   ],
     imports: [
         CommonModule,
