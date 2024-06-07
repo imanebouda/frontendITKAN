@@ -14,6 +14,7 @@ const httpOptions ={
 })
 export class AuditService {
     private apiUrl = 'https://localhost:44305/api/Audit';
+    private apiauth='https://localhost:44305/api/Auth/GetAllAuditeur'
 
 
 
@@ -146,6 +147,12 @@ export class AuditService {
 
     getAuditsByType(type: string) {
         return this.http.get<AuditModel[]>(`${this.apiUrl}/byType?type=${type}`);
+    }
+
+
+    GetAllAuditeur(){
+        return this.http.get<any>(this.apiauth);
+
     }
 
 

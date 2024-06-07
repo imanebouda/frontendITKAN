@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DropdownComponent } from './dropdown.component';
 
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DropdownModule} from "primeng/dropdown"; // Importez FormsModule depuis Angular
 
 @NgModule({
@@ -12,6 +12,7 @@ import {DropdownModule} from "primeng/dropdown"; // Importez FormsModule depuis 
     imports: [
         CommonModule,
         DropdownModule,
+        ReactiveFormsModule,
 
         FormsModule // Ajoutez FormsModule ici
     ],

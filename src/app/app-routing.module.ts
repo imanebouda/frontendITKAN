@@ -125,7 +125,7 @@ import {DetailAuditComponent} from "./bo/components/audit/detail-audit/detail-au
                         {
                             path: 'list',
                             component: ListAuditComponent,
-                        },
+                       },
                         {
                             path: 'addaudit',
                             component: AddAuditComponent,

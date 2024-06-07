@@ -55,4 +55,11 @@ export class AddAuditComponent implements OnInit {
       this.errorMessage = 'Invalid form!';
     }
   }
+
+
+
+    GetAllAuditeur(){
+        this.auditService.GetAllAuditeur();
+
+    }
 }
