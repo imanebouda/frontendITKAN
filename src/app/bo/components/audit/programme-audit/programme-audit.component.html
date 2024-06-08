@@ -1,27 +1,21 @@
-<div class="form-group">
-    <label for="auditSelect">Sélectionnez un audit :</label>
-    <select id="auditSelect" class="form-control" [(ngModel)]="selectedAuditId" (change)="onAuditChange()">
-        <option *ngFor="let audit of audits" [value]="audit.id">{{ audit.nomAudit }}</option>
-    </select>
+<div>
+    <h2>Programme Audits</h2>
+    <p-table [value]="programmeAudits" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Title</th>
+                <th>Date Audit</th>
+                <th>Description</th>
+                <th>Audit ID</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-programmeAudit>
+            <tr>
+                <td>{{ programmeAudit.title }}</td>
+                <td>{{ programmeAudit.dateAudit | date }}</td>
+                <td>{{ programmeAudit.description }}</td>
+                <td>{{ programmeAudit.auditID }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
-
-<!-- Afficher les détails du programme d'audit -->
-<div *ngIf="programmeAudits.length > 0">
-    <h3>Programme d'audit pour l'audit sélectionné :</h3>
-    <ul>
-        <li *ngFor="let programmeAudit of programmeAudits">
-            {{ programmeAudit.title }} - {{ programmeAudit.description }}
-        </li>
-    </ul>
-</div>
-
-<!-- Afficher un message si aucun programme d'audit trouvé -->
-<div *ngIf="programmeAudits.length === 0 && !is_loading">
-    Aucun programme d'audit trouvé pour l'audit sélectionné.
-</div>
-
-<!-- Afficher un spinner de chargement pendant le chargement -->
-<div *ngIf="is_loading">
-    Chargement en cours...
-</div>
-

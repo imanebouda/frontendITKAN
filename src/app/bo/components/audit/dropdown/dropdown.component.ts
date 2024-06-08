@@ -37,7 +37,7 @@ export class DropdownComponent implements OnInit{
                     }));
                 }
             },
-            (error) => {
+            (error: any) => {
                 console.error('Erreur lors de la récupération des auditeurs', error);
             }
         );

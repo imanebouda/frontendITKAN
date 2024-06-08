@@ -10,7 +10,7 @@ import { AuditService } from '../../../../services/AuditServices/audit.service';
     styleUrls: ['./add-constat.component.scss']
 })
 export class AddConstatComponent {
-    newConstat = new ConstatModel();
+    /*newConstat = new ConstatModel();
     audits: AuditModel[] = [];
 
     newAuditId!: number;
@@ -33,5 +33,5 @@ export class AddConstatComponent {
         this.constatService.addConstat(this.newConstat).subscribe(() => {
             // Logique de redirection ou de traitement supplémentaire après l'ajout du constat
         });
-    }
+    }*/
 }

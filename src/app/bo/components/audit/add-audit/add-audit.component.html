@@ -1,23 +1,26 @@
 <form [formGroup]="addAuditForm" (ngSubmit)="submitForm()">
     <div class="form-group">
-      <label for="nomAudit">Nom</label>
-      <input type="text" class="form-control" id="nomAudit" formControlName="nomAudit">
+        <label for="nomAudit">Nom</label>
+        <input type="text" class="form-control" id="nomAudit" formControlName="nomAudit">
+    </div>
+
+    <div class="form-group">
+        <label for="dateAudit">Date d'Audit</label>
+        <input type="date" class="form-control" id="dateAudit" formControlName="dateAudit">
     </div>
     <div class="form-group">
-      <label for="typeAudit">Type d'Audit</label>
-      <input type="text" class="form-control" id="typeAudit" formControlName="typeAudit">
+        <label for="status">Statut</label>
+        <input type="text" class="form-control" id="status" formControlName="status">
     </div>
     <div class="form-group">
-      <label for="dateAudit">Date d'Audit</label>
-      <input type="date" class="form-control" id="dateAudit" formControlName="dateAudit">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" formControlName="description"></textarea>
     </div>
     <div class="form-group">
-      <label for="status">Statut</label>
-      <input type="text" class="form-control" id="status" formControlName="status">
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea class="form-control" id="description" formControlName="description"></textarea>
+        <label for="typeAudit">Type de Audit</label>
+        <select class="form-control" id="typeAuditId" formControlName="typeAuditId">
+            <option *ngFor="let type of typeAuditOptions" [ngValue]="type.id">{{ type.type }}</option>
+        </select>
     </div>
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     <button type="submit" class="btn btn-primary">Soumettre</button>

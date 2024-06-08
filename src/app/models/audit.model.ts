@@ -1,4 +1,5 @@
-import {ConstatModel} from "./constat.model";
+
+import { TypeAuditModel } from "./type-audit.model";
 
 export class AuditModel{
     id !: number ;
@@ -6,8 +7,9 @@ export class AuditModel{
     dateAudit !: Date ;
     status !: string;
     description !: string;
-    typeAudit!: string;
-
+    typeaudit_id !: number;
+    //Audit?: AuditModel;
+    typeAudit?: TypeAuditModel;
 
 
 }

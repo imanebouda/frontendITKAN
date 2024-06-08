@@ -1,28 +1,28 @@
 <div *ngIf="selectedAudit">
     <form [formGroup]="updateAuditForm" (ngSubmit)="submitForm()">
-      <div class="form-group">
-        <label for="name">Nom</label>
-        <input type="text" class="form-control" id="nomAudit" formControlName="nomAudit" [(ngModel)]="selectedAudit.nomAudit">
-      </div>
-      <div class="form-group">
-        <label for="typeAudit">Type d'Audit</label>
-        <input type="text" class="form-control" id="typeAudit" formControlName="typeAudit" [(ngModel)]="selectedAudit.typeAudit">
-      </div>
-      
-      <div class="form-group">
-        <label for="dateAudit">Date d'Audit</label>
-        <input type="date" class="form-control" id="dateAudit" formControlName="dateAudit" [(ngModel)]="selectedAudit.dateAudit">
-      </div>
-      <div class="form-group">
-        <label for="status">Statut</label>
-        <input type="text" class="form-control" id="status" formControlName="status" [(ngModel)]="selectedAudit.status">
-      </div>
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" formControlName="description" [(ngModel)]="selectedAudit.description"></textarea>
-      </div>     
-      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
-      <button type="submit" class="btn btn-primary">Soumettre</button>
+        <div class="form-group">
+            <label for="nomAudit">Nom</label>
+            <input type="text" class="form-control" id="nomAudit" formControlName="nomAudit" [(ngModel)]="selectedAudit.nomAudit">
+        </div>
+        <div class="form-group">
+            <label for="dateAudit">Date d'Audit</label>
+            <input type="date" class="form-control" id="dateAudit" formControlName="dateAudit" [(ngModel)]="selectedAudit.dateAudit">
+        </div>
+        <div class="form-group">
+            <label for="status">Statut</label>
+            <input type="text" class="form-control" id="status" formControlName="status" [(ngModel)]="selectedAudit.status">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" formControlName="description" [(ngModel)]="selectedAudit.description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="typeAuditId">Type de Audit</label>
+            <select class="form-control" id="typeAuditId" formControlName="typeAuditId" (change)="updateTypeAudit($event)">
+                <option *ngFor="let type of typeAuditOptions" [ngValue]="type.id">{{ type.type }}</option>
+            </select>
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+        <button type="submit" class="btn btn-primary">Soumettre</button>
     </form>
-  </div>
-  
+</div>

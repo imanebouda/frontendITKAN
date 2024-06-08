@@ -8,7 +8,7 @@ import {AuditModel} from "../../models/audit.model";
 })
 export class ProgrammeAuditService {
 
-    private apiUrl = 'https://localhost:44305/api';
+    private apiUrl = 'https://localhost:44305/api/ProgrammeAudit';
    // private apiauth='https://localhost:44305/api/Auth/GetAllAuditeur'
 
 
@@ -22,10 +22,9 @@ export class ProgrammeAuditService {
 
 
 
-
-
-
-
+    getProgrammeAudits() {
+        return this.http.get<ProgrammeAuditModel[]>(`${this.apiUrl}/programme-audits`);
+    }
     getProgrammeAuditsForAudit(auditId: number) {
         return this.http.get<ProgrammeAuditModel[]>(`${this.apiUrl}/programme-audits/${auditId}`);
     }

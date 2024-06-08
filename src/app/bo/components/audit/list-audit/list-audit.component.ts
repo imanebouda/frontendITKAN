@@ -1,132 +1,132 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { AuditModel } from "../../../../models/audit.model";
-import { AuditService } from "../../../../services/AuditServices/audit.service";
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { AuditModel } from 'src/app/models/audit.model';
+import { AuditService } from 'src/app/services/AuditServices/audit.service';
 import { Modal } from 'bootstrap';
-import {dateTimestampProvider} from "rxjs/internal/scheduler/dateTimestampProvider";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-list-audit',
-  templateUrl: './list-audit.component.html',
-  styleUrls: ['./list-audit.component.scss']
+    selector: 'app-list-audit',
+    templateUrl: './list-audit.component.html',
+    styleUrls: ['./list-audit.component.scss']
 })
-export class ListAuditComponent {
-  @ViewChild('addAuditModal') addModal: ElementRef;
-  @ViewChild('updateAuditModal') updateModal: ElementRef;
+export class ListAuditComponent implements OnInit {
+    showDialog: boolean = false; // Propriété pour contrôler l'affichage du dialogue
 
-  formulaireRecherche: FormGroup;
-  typeAuditList: any;
-  addAudit: AuditModel;
-  selectedAudit: AuditModel;
-  audits: AuditModel[] = []; // Initialize as an empty array
-  is_loading: boolean = true;
+    options: any[] = [
+        { label: 'Option 1', value: 'option1' },
+        { label: 'Option 2', value: 'option2' },
+        { label: 'Option 3', value: 'option3' }
+    ];
+    selectedOption: string;
 
-  constructor(
-    private auditService: AuditService,
-    private fb: FormBuilder
-  ) {
-    this.formulaireRecherche = this.fb.group({
-      typeAudit: [''],
-      annee: ['']
-    });
-  }
+    audits: AuditModel[] = [];
+    is_loading: boolean = true;
+    formulaireRecherche: FormGroup;
+    typeAuditList: { label: string; value: number }[] = [];
+    selectedAudit: AuditModel;
+    addAudit: AuditModel;
 
-  ngOnInit(): void {
-    this.loadAudits();
-  }
+    @ViewChild('updateModal') updateModal: ElementRef;
+    @ViewChild('addModal') addModal: ElementRef;
 
-  searchAudits() {
-      const formValues = this.formulaireRecherche.value;
-      const selectedDate: Date = formValues.annee;
-      const selectedType: string = formValues.typeAudit;
+    constructor(private auditService: AuditService, private http: HttpClient) {}
 
-      if (selectedDate) {
-          // Convertir la date en une chaîne de caractères au format ISO 8601
-          const formattedDate: string = selectedDate.toISOString();
+    ngOnInit(): void {
+        this.initializeForm();
+        this.loadAudits();
+        this.loadTypeAudits();
+        this.http.get<string[]>('https://localhost:44305/Dropdown/options')
+            .subscribe(options => this.options = options);
+    }
 
-          // Appeler la méthode getAuditsByDate du service d'audit en passant la date formatée
-          this.auditService.getAuditsByDate(formattedDate).subscribe(
-              audits => {
-                  this.audits = audits;
-                  this.is_loading = false;
-              },
-              error => {
-                  console.error('Error fetching audits by date:', error);
-                  this.is_loading = false;
-              }
-          );
-      } else if (selectedType) {
-          // Appeler la méthode getAuditsByType du service d'audit en passant le type sélectionné
-          this.auditService.getAuditsByType(selectedType).subscribe(
-              audits => {
-                  this.audits = audits;
-                  this.is_loading = false;
-              },
-              error => {
-                  console.error('Error fetching audits by type:', error);
-                  this.is_loading = false;
-              }
-          );
-      } else {
-          // Si aucun filtre n'est sélectionné, charger tous les audits
-          this.loadAudits();
-      }
-  }
+    initializeForm(): void {
+        this.formulaireRecherche = new FormGroup({
+            typeAudit: new FormControl('')
+        });
+    }
 
-  openAddAuditModal() {
-    const modal = new Modal(this.addModal.nativeElement);
-    modal.show();
-  }
+    loadAudits(): void {
+        this.auditService.getAuditList().subscribe(
+            audits => {
+                this.audits = audits;
+                this.is_loading = false;
+            },
+            error => {
+                console.error('Error fetching Audits:', error);
+                this.is_loading = false;
+            }
+        );
+    }
 
-  openUpdateDialog(audit: AuditModel): void {
-    console.log('Selected checklist:', audit);
-    this.selectedAudit = audit;
-    const modal = new Modal(this.updateModal.nativeElement);
-    modal.show();
-  }
+    loadTypeAudits(): void {
+        this.auditService.getTypeAudits().subscribe(
+            typeAudits => {
+                this.typeAuditList = typeAudits.map(ta => ({ label: ta.type, value: ta.id }));
+            },
+            error => {
+                console.error('Error fetching type audits:', error);
+            }
+        );
+    }
 
-  closeUpdateDialog(): void {
-    const modal = Modal.getInstance(this.updateModal.nativeElement);
-    modal.hide();
-    this.selectedAudit = null;
-    this.loadAudits();
-  }
+    searchAudits(): void {
+        const typeAuditId = this.formulaireRecherche.get('typeAudit')?.value;
+        if (typeAuditId) {
+            this.is_loading = true;
+            this.auditService.searchAuditsByType(typeAuditId).subscribe(
+                audits => {
+                    this.audits = audits;
+                    this.is_loading = false;
+                },
+                error => {
+                    console.error('Error searching audits:', error);
+                    this.is_loading = false;
+                }
+            );
+        } else {
+            this.loadAudits();
+        }
+    }
 
-  clearSearch() {
-      this.formulaireRecherche.reset();
-      this.loadAudits();
-  }
+    clearSearch(): void {
+        this.formulaireRecherche.reset();
+        this.loadAudits();
+    }
 
-  loadAudits(): void {
-    this.auditService.auditList().subscribe(
-      audits => {
-        this.audits = audits;
-        this.is_loading = false;
-      },
-      error => {
-        console.error('Error fetching Audits:', error);
-        this.is_loading = false;
-      }
-    );
-  }
+    deleteAudit(auditData: AuditModel): void {
+        this.auditService.deleteAudit(auditData.id).subscribe(
+            response => {
+                console.log('Audit deleted successfully', response);
+                this.loadAudits(); // Refresh the list after deletion
+            },
+            error => {
+                console.error('Error deleting Audit', error);
+            }
+        );
+    }
 
-  deleteAudit(AuditData: AuditModel): void {
-    this.auditService.deleteAudit(AuditData).subscribe(
-      response => {
-        console.log('Audit deleted successfully', response);
-        this.loadAudits(); // Refresh the list after deletion
-      },
-      error => {
-        console.error('Error deleting Audit', error);
-      }
-    );
-  }
+    openUpdateDialog(audit: AuditModel): void {
+        console.log('Selected audit:', audit);
+        this.selectedAudit = audit;
+        const modal = new Modal(this.updateModal.nativeElement);
+        modal.show();
+    }
 
-  closeAddAuditDialog(): void {
-    const modal = Modal.getInstance(this.addModal.nativeElement);
-    modal.hide();
-    this.loadAudits();
-  }
+    openAddAuditModal(): void {
+        console.log('Add audit:');
+        const modal = new Modal(this.addModal.nativeElement);
+        modal.show();
+    }
 
-    protected readonly dateTimestampProvider = dateTimestampProvider;
+    closeUpdateDialog(): void {
+        const modal = Modal.getInstance(this.updateModal.nativeElement);
+        modal.hide();
+        this.selectedAudit = null;
+    }
+
+    closeAddDialog(): void {
+        const modal = Modal.getInstance(this.addModal.nativeElement);
+        modal.hide();
+    }
 }
