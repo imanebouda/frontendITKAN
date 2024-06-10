@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuditService } from "../../../../services/AuditServices/audit.service";
+import { AuditService } from 'src/app/services/AuditServices/audit.service';
 
 @Component({
     selector: 'app-dropdown',

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef }
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuditModel } from 'src/app/models/audit.model';
 import { AuditService } from 'src/app/services/AuditServices/audit.service';
-
 @Component({
     selector: 'app-update-audit',
     templateUrl: './update-audit.component.html',
@@ -15,14 +14,15 @@ export class UpdateAuditComponent implements OnInit {
     updateAuditForm: FormGroup;
     is_loading = false;
     errorMessage: string = '';
+    userAuditeur: any[] = [];
     typeAuditOptions: any[] = [];
-
+    statusOptions: string[] = AuditModel.statusOptions;
     constructor(
         private fb: FormBuilder,
         private auditService: AuditService
     ) {
         this.updateAuditForm = this.fb.group({
-            nomAudit: ['', Validators.required],
+            auditor_id: ['', Validators.required],
             dateAudit: ['', Validators.required],
             status: ['', Validators.required],
             description: ['', Validators.required],
@@ -32,6 +32,7 @@ export class UpdateAuditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.getAllAuditeur();
         if (this.selectedAudit) {
             this.updateAuditForm.patchValue(this.selectedAudit);
         }
@@ -61,7 +62,7 @@ export class UpdateAuditComponent implements OnInit {
             // Créer un objet conforme à la structure de la requête envoyée par Swagger
             const requestBody = {
                 id: this.selectedAudit.id,
-                nomAudit: formData.nomAudit,
+                auditor_id:formData.auditor_id,
                 dateAudit: formData.dateAudit,
                 status: formData.status,
                 description: formData.description,
@@ -102,5 +103,17 @@ export class UpdateAuditComponent implements OnInit {
             typeAuditId: selectedTypeId,
             typeAudit: { id: selectedTypeId }
         });
+    }
+    getAllAuditeur(): void {
+        this.auditService.GetAllAuditeur().subscribe(
+            (res: any) => {
+                if (res) {
+                    this.userAuditeur = res;
+                }
+            },
+            (error: any) => {
+                console.error('Erreur lors de la récupération des auditeurs', error);
+            }
+        );
     }
 }
