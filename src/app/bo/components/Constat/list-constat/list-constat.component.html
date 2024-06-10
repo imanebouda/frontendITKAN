@@ -1,28 +1,23 @@
-<div class="container">
-    <div class="card shadow mb-4">
-        <div class="card-body">
-            <h5>Liste des constats</h5>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th scope="col">ID du Constat</th>
-                    <th scope="col">Titre de l'Écart</th>
-                    <th scope="col">Type d'Écart</th>
-                    <th scope="col">Actions</th>
-                </tr>
-                </thead>
-                <tbody *ngFor="let constat of constats">
-                <tr>
-                    <td>{{ constat.id }}</td>
-                    <td>{{ constat.ecartTitle }}</td>
-                    <td>{{ constat.ecartType }}</td>
-                    <td>
-                        <button class="btn btn-danger" (click)=" deleteConstat(constat)">SUPPRIMER</button>
-                        <a class="btn btn-success" [routerLink]="['/editconstat', constat.id]">MODIFIER</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div *ngIf="constats.length > 0">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type Constat ID</th>
+            <th>Checklist ID</th>
+            <th>Constat</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let constat of constats">
+            <td>{{ constat.id }}</td>
+            <td>{{ constat.typeConstatId }}</td>
+            <td>{{ constat.checklistId }}</td>
+            <td>{{ constat.constat }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div *ngIf="constats.length === 0">
+    <p>Aucun constat disponible.</p>
 </div>

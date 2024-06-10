@@ -9,31 +9,13 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./list-constat.component.scss']
 })
 export class ListConstatComponent {
-    constats: ConstatModel[];
-    Afficher_params: Subscription;
+    constats: ConstatModel[] = [];
 
-    constructor(private constatService: ConstatService) {
-        this.loadConstats();
-    }
+    constructor(private constatService: ConstatService) { }
 
-    loadConstats() {
-        this.constatService.constatList().subscribe(
-            constats => this.constats = constats,
-            error => console.error('Error fetching constats:', error)
-        );
-    }
-
-    deleteConstat(constatData: any): void {
-        this.constatService.deleteConstat(constatData)
-            .subscribe(
-                (response: any) => {
-                    console.log('Constat supprimé avec succès', response);
-                    // Faire quelque chose avec la réponse si nécessaire
-                },
-                (error: any) => {
-                    console.error('Erreur lors de la suppression du constat', error);
-                    // Gérer l'erreur si nécessaire
-                }
-            );
+    ngOnInit(): void {
+        this.constatService.constatList().subscribe((data: ConstatModel[])=> {
+            this.constats = data;
+        });
     }
 }

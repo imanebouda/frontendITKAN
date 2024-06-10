@@ -1,14 +1,55 @@
-<form [formGroup]="auditeurForm"> <!-- Utilisez le FormGroup parent -->
-    <div class="flex flex-column mb-2" style="width: 50%;">
-        <label class="mb-2">Auditeur</label>
-        <p-dropdown [autoDisplayFirst]="false" [resetFilterOnHide]="true" class="ng-dirty" [showClear]="true"
-                    [options]="userAuditeur" formControlName="Auditeur" [filter]="true" placeholder="Sélectionnez un Auditeur"
-                    emptyFilterMessage="Aucun Auditeur" emptyMessage="Aucun Auditeur" scrollHeight="130px">
-            <ng-template let-element pTemplate="item">
-                <div class="flex justify-content-between">
-                    <span class="font-12">{{ element?.label }}</span>
-                </div>
-            </ng-template>
-        </p-dropdown>
+<form [formGroup]="addActionForm" (ngSubmit)="submitForm()">
+    <div class="p-fluid">
+
+        <div class="p-field">
+            <label for="type">Type (Curative, Corrective)</label>
+            <p-dropdown
+                id="type"
+                formControlName="type"
+                [options]="typeOptions"
+                optionLabel="label"
+                placeholder="Select Type"
+                class="form-control">
+            </p-dropdown>
+        </div>
+
+        <div class="p-field">
+            <label for="libelle">Libelle</label>
+            <input type="text" pInputText id="libelle" formControlName="libelle" class="form-control">
+        </div>
+
+        <div class="p-field">
+            <label for="detail">Détail</label>
+            <textarea pInputTextarea id="detail" formControlName="detail" rows="3" class="form-control"></textarea>
+        </div>
+
+        <div class="p-field">
+            <label for="responsableID">ResponsableID</label>
+            <input type="text" pInputText id="responsableID" formControlName="responsableID" class="form-control">
+        </div>
+
+        <div class="p-field">
+            <label for="assignedToID">AssignedToID (null)</label>
+            <input type="text" pInputText id="assignedToID" formControlName="assignedToID" class="form-control">
+        </div>
+
+        <div class="p-field">
+            <label for="statusID">StatusID</label>
+            <input type="text" pInputText id="statusID" formControlName="statusID" class="form-control">
+        </div>
+
+        <div class="p-field">
+            <label for="creationBy">CreationBy</label>
+            <input type="text" pInputText id="creationBy" formControlName="creationBy" class="form-control">
+        </div>
+
+        <div class="p-field">
+            <label for="creationDate">CreationDate</label>
+            <p-calendar id="creationDate" formControlName="creationDate" dateFormat="yy-mm-dd" class="form-control"></p-calendar>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+        <button pButton type="submit" label="Soumettre" class="btn btn-primary"></button>
     </div>
 </form>

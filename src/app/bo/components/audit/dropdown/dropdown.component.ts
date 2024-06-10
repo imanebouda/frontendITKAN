@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AuditService } from "../../../../services/AuditServices/audit.service";
+import {Modal} from "bootstrap";
+import {ActivatedRoute, Router} from "@angular/router";
+import {ConstatService} from "../../../../services/AuditServices/constat.service";
+import {ConstatModel} from "../../../../models/constat.model";
+import {AuditModel} from "../../../../models/audit.model";
 
 @Component({
     selector: 'app-dropdown',
@@ -8,42 +13,39 @@ import { AuditService } from "../../../../services/AuditServices/audit.service";
     styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent implements OnInit{
-    auditeurForm: FormGroup; // Définissez le FormGroup parent
 
-    userAuditeur: any[] = [];
-    Afficher_params: any;
-    auditeurs: any[] = [];
-    selectedOption: string;
 
-    constructor(private fb: FormBuilder, private auditService: AuditService) { }
+
+
+    addActionForm: FormGroup;
+    typeOptions = [
+        { label: 'Curative', value: 'Curative' },
+        { label: 'Corrective', value: 'Corrective' }
+    ];
+    errorMessage: string;
+
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        // Initialisez le FormGroup parent
-        this.auditeurForm = this.fb.group({
-            Auditeur: [null]
+        this.addActionForm = this.fb.group({
+            type: ['', Validators.required],
+            libelle: ['', Validators.required],
+            detail: ['', Validators.required],
+            responsableID: ['', Validators.required],
+            assignedToID: [null],
+            statusID: ['', Validators.required],
+            creationBy: ['', Validators.required],
+            creationDate: ['', Validators.required]
         });
-
-        // Chargez les auditeurs
-        this.getAllAuditeur();
     }
 
-    getAllAuditeur(): void {
-        this.Afficher_params = this.auditService.GetAllAuditeur().subscribe(
-            (res: any) => {
-                if (res) {
-                    this.userAuditeur = res.map((element: any) => ({
-                        value: element.id,
-                        label: element.nomCompletUtilisateur
-                    }));
-                }
-            },
-            (error: any) => {
-                console.error('Erreur lors de la récupération des auditeurs', error);
-            }
-        );
+    submitForm(): void {
+        if (this.addActionForm.valid) {
+            console.log(this.addActionForm.value);
+            // Submit form data
+        } else {
+            this.errorMessage = 'Veuillez remplir tous les champs';
+        }
     }
 
-    onDropdownChange(): void {
-        // Code pour gérer le changement dans le dropdown
-    }
 }

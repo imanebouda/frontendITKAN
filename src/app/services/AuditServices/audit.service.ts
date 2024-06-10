@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import {Observable, Subject, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {AuditModel} from "../../models/audit.model";
@@ -156,5 +156,15 @@ export class AuditService {
         return this.http.get<AuditModel[]>(`${this.apiUrl}/byDate?date=${formattedDate}`);
 
 
+    }
+
+
+
+
+    private openModalSource = new Subject<void>();
+    openModal$ = this.openModalSource.asObservable();
+
+    triggerOpenModal() {
+        this.openModalSource.next();
     }
 }

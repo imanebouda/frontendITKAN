@@ -33,30 +33,39 @@
 
 
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-striped" >
-            <thead>
-            <tr>
-                <th>Id Question</th>
-                <th>type constat</th>
-                <th>Statut</th>
-                <th>Constat</th>
 
-                <th class="text-center">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>Rq</td>
-                <td>En cours</td>
-                <td> informations relatives au contrôle</td>
-                <td></td>
-
-            </tr>
-            </tbody>
-        </table>
-
-    </div>
 
 </div>
+
+
+
+<div *ngIf="constats.length > 0">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Type Constat ID</th>
+            <th>Checklist ID</th>
+            <th>Constat</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let constat of constats">
+            <td>{{ constat.id }}</td>
+            <td>{{ constat.typeConstatId }}</td>
+            <td>{{ constat.checklistId }}</td>
+            <td>{{ constat.constat }}</td>
+            <td>     <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil"
+                        tooltipPosition="left"   [routerLink]="['/ecart']">
+                </i>
+
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+

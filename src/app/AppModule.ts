@@ -54,6 +54,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import {DetailAuditComponent} from "./bo/components/audit/detail-audit/detail-audit.component";
 import {ProgrammeAuditComponent} from "./bo/components/audit/programme-audit/programme-audit.component";
+import {DropdownComponent} from "./bo/components/audit/dropdown/dropdown.component";
 registerLocaleData(localeFr);
 
 @NgModule({
@@ -67,20 +68,21 @@ registerLocaleData(localeFr);
         FileUploadModule,
         NgxExtendedPdfViewerModule,
         BrowserModule,
-     FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule, // Ajoutez cette ligne
-    DialogModule,
-    ButtonModule,
-    RippleModule,
-    InputTextModule,
-    DropdownModule,
-    MessageModule,
-    TooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule, // Ajoutez cette ligne
+        DialogModule,
+        ButtonModule,
+        RippleModule,
+        InputTextModule,
+        DropdownModule,
+        MessageModule,
+        TooltipModule,
+        DropdownModules,
 
         //GestionAuditModule
-       // GestionAuditModule,
-       // DropdownModules
+        // GestionAuditModule,
+        // DropdownModules
     ],
     providers: [
         { provide: LOCALE_ID, useValue: 'fr-FR' },
