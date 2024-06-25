@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CheckListService } from './check-list.service';
+import { ChecklistService } from './check-list.service';
 
 describe('CheckListService', () => {
-  let service: CheckListService;
+  let service: ChecklistService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CheckListService);
+    service = TestBed.inject(ChecklistService);
   });
 
   it('should be created', () => {
