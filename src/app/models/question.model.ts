@@ -1,6 +1,6 @@
 import { TypeCheckListModel } from "./type-check-list.model";
 
-export class CheckListModel{
+export class QuestionModel{
     id !: number ;
     name !: string;
     niveau !: string;

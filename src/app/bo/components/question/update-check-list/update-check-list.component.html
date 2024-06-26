@@ -20,10 +20,9 @@
     <div class="form-group">
       <label for="typeCheckListAudit">Type de Checklist</label>
       <select class="form-control" id="typechecklist_id" formControlName="typechecklist_id">
-        <option *ngFor="let type of typeCheckListOptions"  [(ngModel)]="selectedCheckList.typechecklist_id">{{ type.type }}</option>
+        <option *ngFor="let type of typeCheckListOptions"  [ngValue]="type.id">{{ type.type }}</option>
       </select>
     </div>
-    
     <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
     <button type="submit" class="btn btn-primary">Soumettre</button>
   </form>

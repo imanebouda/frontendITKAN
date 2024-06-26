@@ -149,7 +149,7 @@ export class AppMenuComponent implements OnInit {
                     },
 
                     {
-                        label: 'CheckList',
+                        label: 'Questions',
                         icon: 'pi pi-users',
                         routerLink: ['listCheckList'],
                         visible: this.generalService.canActivate(
@@ -157,7 +157,15 @@ export class AppMenuComponent implements OnInit {
                         ),
                         ispopup:false
                     },
-
+                    {
+                        label: 'CheckList',
+                        icon: 'pi pi-users',
+                        routerLink: ['list_Check_List'],
+                        visible: this.generalService.canActivate(
+                            'Utilisateurs-Consulter'
+                        ),
+                        ispopup:false
+                    },
                     {
                         label: 'Paramètres',
                         icon: 'pi pi-cog',

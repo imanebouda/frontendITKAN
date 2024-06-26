@@ -1,11 +1,11 @@
 <!-- list-check-list.component.html -->
 
-<p-fieldset legend="Recherchez les CheckLists" [toggleable]="true">
-  <form [formGroup]="formulaireRecherche" (ngSubmit)="searchCheckLists()">
+<p-fieldset legend="Recherchez les Questions" [toggleable]="true">
+  <form [formGroup]="formulaireRecherche" (ngSubmit)="searchQuestions()">
     <div class="d-flex justify-content-center mb-3">
       <div class="field col-4 text-center">
-        <label class="mb-2">Type de Checklist</label>
-        <p-dropdown [options]="typeChecklistList" formControlName="typeChecklist" [filter]="true" placeholder="Sélectionnez un type de checklist">
+        <label class="mb-2">Type de Question</label>
+        <p-dropdown [options]="typeQuestion" formControlName="typeChecklist" [filter]="true" placeholder="Sélectionnez un type de Question">
           <ng-template let-element pTemplate="item">
             <div class="flex justify-content-between">
               <span class="font-12">{{ element?.label }}</span>
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="flex justify-content-end center_media mt-2" style="column-gap: 10px;">
-      <button type="submit" pButton pRipple class="p-button" label="Ajouter Checklist" tooltipPosition="right" style="font-size: 11px !important;" (click)="openAddCheckListModal()"></button>
+      <button type="submit" pButton pRipple class="p-button" label="Ajouter Question" tooltipPosition="right" style="font-size: 11px !important;" (click)="openAddCheckListModal()"></button>
       <button type="submit" pButton pRipple class="p-button" icon="pi pi-search" iconPos="left" label="Rechercher / Rafraîchir" [disabled]="is_loading" style="font-size: 11px !important;"></button>
       <div>
         <button pButton pRipple class="ml-2 p-button-rounded" icon="pi pi-filter-slash" tooltipPosition="left" pTooltip="Cliquez ici pour vider le formulaire" (click)="clearSearch()"></button>
@@ -32,10 +32,10 @@
 <app-loader *ngIf="is_loading"></app-loader>
 
 <p-card class="m-1 mt-1 mb-1">
-  <p-table responsiveLayout="scroll" [value]="checkLists" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="checkLists.length" [lazy]="true" [sortOrder]="1" sortField="id">
+  <p-table responsiveLayout="scroll" [value]="questions" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="questions.length" [lazy]="true" [sortOrder]="1" sortField="id">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="id">ID du checkList <p-sortIcon field="id"></p-sortIcon></th>
+        <th pSortableColumn="id">ID du Question <p-sortIcon field="id"></p-sortIcon></th>
         <th pSortableColumn="name">Nom <p-sortIcon field="name"></p-sortIcon></th>
         <th pSortableColumn="niveau">Niveau <p-sortIcon field="niveau"></p-sortIcon></th>
         <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
@@ -89,7 +89,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateModalLabel">Update Checklist</h5>
+        <h5 class="modal-title" id="updateModalLabel">Update Question</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

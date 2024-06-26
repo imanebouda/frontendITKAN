@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CheckListModel } from 'src/app/models/check-list.model';
-import { CheckListService } from 'src/app/services/AuditServices/check-list.service';
+import { QuestionModel } from 'src/app/models/question.model';
+import { QuestionService } from 'src/app/services/AuditServices/question.service';
 
 @Component({
   selector: 'app-update-check-list',
@@ -9,8 +9,9 @@ import { CheckListService } from 'src/app/services/AuditServices/check-list.serv
   styleUrls: ['./update-check-list.component.scss']
 })
 export class UpdateCheckListComponent implements OnInit {
-  @Input() selectedCheckList: CheckListModel;
+  @Input() selectedCheckList: QuestionModel;
   @Output() closeUpdateDialog = new EventEmitter<void>();
+  
   updateCheckListForm: FormGroup;
   is_loading = false;
   errorMessage: string = '';
@@ -18,7 +19,7 @@ export class UpdateCheckListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private checkListService: CheckListService
+    private questionService: QuestionService
   ) {
     this.updateCheckListForm = this.fb.group({
       name: ['', Validators.required],
@@ -26,24 +27,29 @@ export class UpdateCheckListComponent implements OnInit {
       code: ['', Validators.required],
       description: ['', Validators.required],
       typechecklist_id: [null, Validators.required],
-      typeCheckListAudit: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
     if (this.selectedCheckList) {
-      this.updateCheckListForm.patchValue(this.selectedCheckList);
+      this.updateCheckListForm.patchValue({
+        name: this.selectedCheckList.name,
+        niveau: this.selectedCheckList.niveau,
+        code: this.selectedCheckList.code,
+        description: this.selectedCheckList.description,
+        typechecklist_id: this.selectedCheckList.typechecklist_id,
+      });
     }
     this.loadTypeCheckLists();
   }
 
   loadTypeCheckLists(): void {
-    this.checkListService.getTypeCheckLists().subscribe(
-      typeChecklists => {
-        this.typeCheckListOptions = typeChecklists;
+    this.questionService.getTypeQuestions().subscribe(
+      typeQuestions => {
+        this.typeCheckListOptions = typeQuestions;
       },
       error => {
-        console.error('Error fetching type checklists:', error);
+        console.error('Error fetching type questions:', error);
       }
     );
   }
@@ -65,46 +71,26 @@ export class UpdateCheckListComponent implements OnInit {
         niveau: formData.niveau,
         code: formData.code,
         description: formData.description,
-        typechecklist_id: typechecklistId, // Utiliser l'identifiant converti
-       /* typeCheckListAudit: {
-          id: formData.typechecklist_id,
-          type: typeCheckListAuditType // Utiliser directement la valeur de typechecklist_id
-        }*/
-
+        typechecklist_id: formData.typechecklist_id, // Utiliser l'identifiant converti
       };
-      console.log("ee",typechecklistId);
-      console.log("ee",typeCheckListAuditId);
-      console.log("ee",typeCheckListAuditType);
 
-      this.checkListService.updateCheckList(this.selectedCheckList.id, requestBody).subscribe(
+      this.questionService.updateQuestion(this.selectedCheckList.id, requestBody).subscribe(
         () => {
           this.is_loading = false;
           this.closeUpdateDialog.emit();
         },
         error => {
           this.is_loading = false;
-          this.errorMessage = 'Error updating checklist: ' + error.message;
+          this.errorMessage = 'Error updating question: ' + error.message;
         }
       );
     } else {
       this.errorMessage = 'Invalid form!';
       console.log(this.updateCheckListForm);
-
     }
-
   }
-
 
   closeDialog() {
     this.closeUpdateDialog.emit(); // Emit event to close the dialog
-  }
-
-  // Méthode pour mettre à jour les champs typechecklist_id et typeCheckListAudit.id simultanément
-  updateTypeCheckList(event: any) {
-    const selectedTypeId = event.target.value;
-    this.updateCheckListForm.patchValue({
-      typechecklist_id: selectedTypeId,
-      typeCheckListAudit: { id: selectedTypeId }
-    });
   }
 }

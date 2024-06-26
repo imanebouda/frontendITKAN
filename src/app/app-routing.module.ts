@@ -14,15 +14,15 @@ import {UpdateConstatComponent} from "./bo/components/Constat/update-constat/upd
 import { AddSiteAuditComponent } from './bo/components/site-audit/add-site-audit/add-site-audit.component';
 import { ListSiteAuditComponent } from './bo/components/site-audit/list-site-audit/list-site-audit.component';
 import { UpdateSiteAuditComponent } from './bo/components/site-audit/update-site-audit/update-site-audit.component';
-import { ListCheckListComponent } from './bo/components/check-list/list-check-list/list-check-list.component';
-import { AddCheckListComponent } from './bo/components/check-list/add-check-list/add-check-list.component';
-import { UpdateCheckListComponent } from './bo/components/check-list/update-check-list/update-check-list.component';
+import { ListCheckListComponent } from './bo/components/question/list-check-list/list-check-list.component';
+import { AddCheckListComponent } from './bo/components/question/add-check-list/add-check-list.component';
+import { UpdateCheckListComponent } from './bo/components/question/update-check-list/update-check-list.component';
 
 import {GestionAuditComponent} from "./bo/components/audit/gestion-audit/gestion-audit.component";
 import {DropdownComponent} from "./bo/components/audit/dropdown/dropdown.component";
 import {DetailAuditComponent} from "./bo/components/audit/detail-audit/detail-audit.component";
 import {ProgrammeAuditComponent} from "./bo/components/audit/programme-audit/programme-audit.component";
-
+import { ListChecklistComponent } from './bo/components/check_list/list-check-list/list-check-list.component';
 
 @NgModule({
     imports: [
@@ -166,6 +166,10 @@ import {ProgrammeAuditComponent} from "./bo/components/audit/programme-audit/pro
                         {
                             path: 'listCheckList',
                             component: ListCheckListComponent,
+                        },
+                        {
+                            path: 'list_Check_List',
+                            component: ListChecklistComponent,
                         },
                         {
                             path: 'addCheckList',

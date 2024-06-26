@@ -90,6 +90,7 @@ export class UpdateAuditComponent implements OnInit {
             this.errorMessage = 'Invalid form!';
             console.log(this.updateAuditForm);
         }
+        
     }
 
     closeDialog() {

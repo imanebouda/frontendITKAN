@@ -107,6 +107,7 @@ export class ListAuditComponent implements OnInit {
                 console.error('Error deleting Audit', error);
             }
         );
+        
     }
 
     openUpdateDialog(audit: AuditModel): void {

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { CheckListModel } from 'src/app/models/check-list.model';
-import { CheckListService } from 'src/app/services/AuditServices/check-list.service';
+import { QuestionModel } from 'src/app/models/question.model';
+import { QuestionService } from 'src/app/services/AuditServices/question.service';
 import { Modal } from 'bootstrap';
 import {HttpClient} from "@angular/common/http";
 
@@ -23,25 +23,23 @@ export class ListCheckListComponent implements OnInit {
 
 
     //
-  checkLists: CheckListModel[] = [];
+  questions: QuestionModel[] = [];
   is_loading: boolean = true;
   formulaireRecherche: FormGroup;
-  typeChecklistList: { label: string; value: number }[] = [];
-  selectedCheckList: CheckListModel;
-  addChecklist : CheckListModel;
+  typeQuestion: { label: string; value: number }[] = [];
+  selectedCheckList: QuestionModel;
+  addChecklist : QuestionModel;
 
   @ViewChild('updateModal') updateModal: ElementRef;
   @ViewChild('addModal') addModal: ElementRef;
 
-  constructor(private checkListService: CheckListService,private http: HttpClient) {}
-
+  constructor(private questionService: QuestionService,private http: HttpClient) {}
   ngOnInit(): void {
     this.initializeForm();
-    this.loadCheckLists();
-    this.loadTypeCheckLists();
+    this.loadquestions();
+    this.loadTypequestions();
       this.http.get<string[]>('https://localhost:44305/Dropdown/options')
           .subscribe(options => this.options = options);
-
   }
 
   initializeForm(): void {
@@ -50,74 +48,74 @@ export class ListCheckListComponent implements OnInit {
     });
   }
 
-  loadCheckLists(): void {
-    this.checkListService.getCheckListList().subscribe(
-      checkLists => {
-        this.checkLists = checkLists;
+  loadquestions(): void {
+    this.questionService.getQuestion().subscribe(
+      questions => {
+        this.questions = questions;
         this.is_loading = false;
       },
       error => {
-        console.error('Error fetching checkLists:', error);
+        console.error('Error fetching questions:', error);
         this.is_loading = false;
       }
     );
   }
 
-  loadTypeCheckLists(): void {
-    this.checkListService.getTypeCheckLists().subscribe(
-      typeChecklists => {
-        this.typeChecklistList = typeChecklists.map(tc => ({ label: tc.type, value: tc.id }));
+  loadTypequestions(): void {
+    this.questionService.getTypeQuestions().subscribe(
+      typeQuestions => {
+        this.typeQuestion = typeQuestions.map(tc => ({ label: tc.type, value: tc.id }));
       },
       error => {
-        console.error('Error fetching type checklists:', error);
+        console.error('Error fetching type questions:', error);
       }
     );
   }
 
-  searchCheckLists(): void {
-    const typeChecklistId = this.formulaireRecherche.get('typeChecklist')?.value;
-    if (typeChecklistId) {
+  searchQuestions(): void {
+    const typeQuestionId = this.formulaireRecherche.get('typeChecklist')?.value;
+    if (typeQuestionId) {
       this.is_loading = true;
-      this.checkListService.searchCheckListsByType(typeChecklistId).subscribe(
-        checkLists => {
-          this.checkLists = checkLists;
+      this.questionService.searchQuestionsByType(typeQuestionId).subscribe(
+        questions => {
+          this.questions = questions;
           this.is_loading = false;
         },
         error => {
-          console.error('Error searching checkLists:', error);
+          console.error('Error searching questions:', error);
           this.is_loading = false;
         }
       );
     } else {
-      this.loadCheckLists();
+      this.loadquestions();
     }
   }
 
   clearSearch(): void {
     this.formulaireRecherche.reset();
-    this.loadCheckLists();
+    this.loadquestions();
   }
 
-  deleteCheckList(checkListData: CheckListModel): void {
-    this.checkListService.deleteCheckList(checkListData.id).subscribe(
+  deleteCheckList(checkListData: QuestionModel): void {
+    this.questionService.deleteQuestion(checkListData.id).subscribe(
       response => {
-        console.log('CheckList deleted successfully', response);
-        this.loadCheckLists(); // Refresh the list after deletion
+        console.log('Question deleted successfully', response);
+        this.loadquestions(); // Refresh the list after deletion
       },
       error => {
-        console.error('Error deleting CheckList', error);
+        console.error('Error deleting Question', error);
       }
     );
   }
 
-  openUpdateDialog(checkList: CheckListModel): void {
-    console.log('Selected checklist:', checkList);
+  openUpdateDialog(checkList: QuestionModel): void {
+    console.log('Selected Question:', checkList);
     this.selectedCheckList = checkList;
     const modal = new Modal(this.updateModal.nativeElement);
     modal.show();
   }
   openAddCheckListModal(): void {
-    console.log('add checklist:');
+    console.log('add Question:');
     const modal = new Modal(this.addModal.nativeElement);
     modal.show();
   }

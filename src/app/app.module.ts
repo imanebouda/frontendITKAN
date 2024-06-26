@@ -34,9 +34,9 @@ import { UpdateConstatComponent } from './bo/components/Constat/update-constat/u
 import { AddSiteAuditComponent } from './bo/components/site-audit/add-site-audit/add-site-audit.component';
 import { ListSiteAuditComponent } from './bo/components/site-audit/list-site-audit/list-site-audit.component';
 import { UpdateSiteAuditComponent } from './bo/components/site-audit/update-site-audit/update-site-audit.component';
-import { UpdateCheckListComponent } from './bo/components/check-list/update-check-list/update-check-list.component';
-import { AddCheckListComponent } from './bo/components/check-list/add-check-list/add-check-list.component';
-import { ListCheckListComponent } from './bo/components/check-list/list-check-list/list-check-list.component';
+import { UpdateCheckListComponent } from './bo/components/question/update-check-list/update-check-list.component';
+import { AddCheckListComponent } from './bo/components/question/add-check-list/add-check-list.component';
+import { ListCheckListComponent } from './bo/components/question/list-check-list/list-check-list.component';
 
 import {GestionAuditModule} from "./bo/components/audit/gestion-audit/gestion-audit.module";
 import {DropdownModules} from "./bo/components/audit/dropdown/dropdown.module";

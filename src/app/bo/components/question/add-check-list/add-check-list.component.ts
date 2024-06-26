@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CheckListModel } from 'src/app/models/check-list.model';
-import { CheckListService } from 'src/app/services/AuditServices/check-list.service';
+import { QuestionModel } from 'src/app/models/question.model';
+import { QuestionService } from 'src/app/services/AuditServices/question.service';
 import { Modal } from 'bootstrap';
 
 @Component({
@@ -10,7 +10,7 @@ import { Modal } from 'bootstrap';
   styleUrls: ['./add-check-list.component.scss']
 })
 export class AddCheckListComponent implements OnInit {
-  @Input() addCheckList: CheckListModel;
+  @Input() addQuestion: QuestionModel;
   @Output() closeAddDialog = new EventEmitter<void>();
  
   addCheckListForm: FormGroup;
@@ -22,7 +22,7 @@ export class AddCheckListComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private checkListService: CheckListService
+    private questionService: QuestionService
   ) {
     this.addCheckListForm = this.fb.group({
       name: ['', Validators.required],
@@ -38,12 +38,12 @@ export class AddCheckListComponent implements OnInit {
   }
 
   loadTypeCheckLists(): void {
-    this.checkListService.getTypeCheckLists().subscribe(
-      typeChecklists => {
-        this.typeCheckListOptions = typeChecklists;
+    this.questionService.getTypeQuestions().subscribe(
+      typeQuestions => {
+        this.typeCheckListOptions = typeQuestions;
       },
       error => {
-        console.error('Error fetching type checklists:', error);
+        console.error('Error fetching type Questions:', error);
       }
     );
   }
@@ -53,7 +53,7 @@ export class AddCheckListComponent implements OnInit {
       this.is_loading = true;
       const formData = this.addCheckListForm.value;
 
-      this.checkListService.addCheckList(formData).subscribe(
+      this.questionService.addQuestion(formData).subscribe(
         () => {
           this.is_loading = false;
           this.closeAddDialog.emit();
