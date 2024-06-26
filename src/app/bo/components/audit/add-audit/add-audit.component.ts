@@ -13,10 +13,13 @@ export class AddAuditComponent implements OnInit {
     @Input() addAudit: AuditModel;
     @Output() closeAddDialog = new EventEmitter<void>();
     typeAuditOptions: any[] = [];
+    AuditModel : AuditModel;
     addAuditForm: FormGroup;
     is_loading = false;
     errorMessage: string = '';
-
+    userAuditeur: any[] = [];
+    selectedOption: string;
+    statusOptions: string[] = AuditModel.statusOptions;
     @ViewChild('addAuditModal') addModal: ElementRef;
 
     constructor(
@@ -24,21 +27,17 @@ export class AddAuditComponent implements OnInit {
         private auditService: AuditService
     ) {
         this.addAuditForm = this.fb.group({
-            nomAudit: ['', Validators.required],
             typeAuditId: ['', Validators.required],
             dateAudit: ['', Validators.required],
             status: ['', Validators.required],
-            description: ['', Validators.required]
-            /*name: ['', Validators.required],
-            niveau: ['', Validators.required],
-            code: ['', Validators.required],
             description: ['', Validators.required],
-            typechecklist_id: [null, Validators.required],*/
+            auditor_id: ['', Validators.required],
         });
     }
 
     ngOnInit(): void {
         this.loadTypeAudits();
+        this.getAllAuditeur();
     }
 
     loadTypeAudits(): void {
@@ -51,6 +50,7 @@ export class AddAuditComponent implements OnInit {
             }
         );
     }
+    
 
     submitForm() {
         if (this.addAuditForm.valid) {
@@ -72,5 +72,18 @@ export class AddAuditComponent implements OnInit {
         } else {
             this.errorMessage = 'Invalid form!';
         }
+    }
+
+    getAllAuditeur(): void {
+        this.auditService.GetAllAuditeur().subscribe(
+            (res: any) => {
+                if (res) {
+                    this.userAuditeur = res;
+                }
+            },
+            (error: any) => {
+                console.error('Erreur lors de la récupération des auditeurs', error);
+            }
+        );
     }
 }

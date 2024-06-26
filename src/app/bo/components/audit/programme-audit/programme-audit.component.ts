@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProgrammeAuditService} from "../../../../services/AuditServices/programme-audit.service";
 import {ProgrammeAuditModel} from "../../../../models/ProgrammeAudit";
 import {AuditModel} from "../../../../models/audit.model";
-import {AuditService} from "../../../../services/AuditServices/audit.service";
+import { AuditService } from 'src/app/services/AuditServices/audit.service';
 
 @Component({
   selector: 'app-programme-audit',

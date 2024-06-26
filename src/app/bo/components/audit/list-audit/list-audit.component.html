@@ -46,8 +46,7 @@
     <p-table responsiveLayout="scroll" [value]="audits" styleClass="p-datatable-responsive-demo" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [totalRecords]="audits.length" [lazy]="true" [sortOrder]="1" sortField="id">
         <ng-template pTemplate="header">
             <tr>
-
-                <th pSortableColumn="nom">Nom <p-sortIcon field="nom"></p-sortIcon></th>
+                <th pSortableColumn="auditor.nomCompletUtilisateur">Nom <p-sortIcon field="auditor.nomCompletUtilisateur"></p-sortIcon></th>
                 <th pSortableColumn="dateAudit">Date <p-sortIcon field="dateAudit"></p-sortIcon></th>
                 <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
                 <th pSortableColumn="typeAudit">Type <p-sortIcon field="typeAudit"></p-sortIcon></th>
@@ -56,8 +55,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-audit>
             <tr>
-
-                <td>{{ audit.nomAudit }}</td>
+                <td>{{ audit.auditor?.nomCompletUtilisateur }}</td>
                 <td>{{ audit.dateAudit }}</td>
                 <td>{{ audit.status }}</td>
                 <td>{{ audit.typeAudit?.type }}</td>

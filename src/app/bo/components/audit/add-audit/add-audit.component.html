@@ -1,16 +1,19 @@
 <form [formGroup]="addAuditForm" (ngSubmit)="submitForm()">
     <div class="form-group">
-        <label for="nomAudit">Nom</label>
-        <input type="text" class="form-control" id="nomAudit" formControlName="nomAudit">
-    </div>
-
+        <label for="user">Nom de l'Auditeur</label>
+        <select class="form-control" id="auditor_id" formControlName="auditor_id">
+            <option *ngFor="let auditor of userAuditeur" [value]="auditor.id">{{ auditor.nomCompletUtilisateur }}</option>
+        </select>
+    </div>    
     <div class="form-group">
         <label for="dateAudit">Date d'Audit</label>
         <input type="date" class="form-control" id="dateAudit" formControlName="dateAudit">
     </div>
     <div class="form-group">
-        <label for="status">Statut</label>
-        <input type="text" class="form-control" id="status" formControlName="status">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status" class="form-control">
+            <option *ngFor="let status of statusOptions" [value]="status">{{ status }}</option>
+        </select>
     </div>
     <div class="form-group">
         <label for="description">Description</label>

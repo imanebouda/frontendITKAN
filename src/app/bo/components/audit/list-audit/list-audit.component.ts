@@ -21,6 +21,7 @@ export class ListAuditComponent implements OnInit {
     selectedOption: string;
 
     audits: AuditModel[] = [];
+    userAuditeur: any[] = [];
     is_loading: boolean = true;
     formulaireRecherche: FormGroup;
     typeAuditList: { label: string; value: number }[] = [];
@@ -33,6 +34,7 @@ export class ListAuditComponent implements OnInit {
     constructor(private auditService: AuditService, private http: HttpClient) {}
 
     ngOnInit(): void {
+        this.getAllAuditeur();
         this.initializeForm();
         this.loadAudits();
         this.loadTypeAudits();
@@ -57,6 +59,7 @@ export class ListAuditComponent implements OnInit {
                 this.is_loading = false;
             }
         );
+        console.log("ggggg",this.userAuditeur);
     }
 
     loadTypeAudits(): void {
@@ -128,5 +131,18 @@ export class ListAuditComponent implements OnInit {
     closeAddDialog(): void {
         const modal = Modal.getInstance(this.addModal.nativeElement);
         modal.hide();
+    }
+    getAllAuditeur(): void {
+        this.auditService.GetAllAuditeur().subscribe(
+            (res: any) => {
+                if (res) {
+                    this.userAuditeur = res;
+                }
+            },
+            (error: any) => {
+                console.error('Erreur lors de la récupération des auditeurs', error);
+            }
+        );
+        
     }
 }

@@ -9,7 +9,7 @@ import {MenuVisibilityService} from "../../../../services/dataShared/menu-visibi
 import {DataService} from "../../../../services/dataShared/data.service";
 import Swal from "sweetalert2";
 import {environment} from "../../../../../environments/environment";
-import {AuditService} from "../../../../services/AuditServices/audit.service";
+import { AuditService } from 'src/app/services/AuditServices/audit.service';
 import {AuditModel} from "../../../../models/audit.model";
 import {ConstatModel} from "../../../../models/constat.model";
 import {ConstatService} from "../../../../services/AuditServices/constat.service";

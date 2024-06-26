@@ -4,21 +4,22 @@ import {Observable, Subject, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import {AuditModel} from "../../models/audit.model";
-
+import { UsersModel } from 'src/app/models/users.model';
 @Injectable({
     providedIn: 'root'
 })
 export class AuditService {
     private apiUrl = `${environment.API_BASE_URL_GENERAL}Audit`;
     private typeAuditUrl = `${environment.API_BASE_URL_GENERAL}TypeAudit`;
-    private apiauth='https://localhost:44305/api/Auth/GetAllAuditeur'
+    private apiauth = 'https://localhost:44305/api/Auth/GetAllAuditeur';
 
 
-    constructor(private http: HttpClient) {}
-    auditList(){
+    constructor(private http: HttpClient) { }
+    auditList() {
         //return this.audits;
         // return this.http.get<AuditModel[]>(this.apiUrl+"/audits", httpOptions);}
-        return this.http.get<AuditModel[]>(this.apiUrl);}
+        return this.http.get<AuditModel[]>(this.apiUrl);
+    }
 
     getAuditList(): Observable<any[]> {
         return this.http.get<any[]>(this.apiUrl).pipe(
@@ -29,17 +30,21 @@ export class AuditService {
     addAudit(newAudit: any): Observable<any> {
         const typeAuditId = newAudit.typeAuditId ? newAudit.typeAuditId : null;
         const typeAuditType = newAudit.typeAudit ? newAudit.typeAudit.type : null;
+        const userId = newAudit.auditor_id ? newAudit.auditor_id : null;
+        const userAudit = newAudit.users ? newAudit.users.username : null;
 
         const addData = {
-            nomAudit: newAudit.nomAudit,
+            nomAudit: "string",
             dateAudit: newAudit.dateAudit,
             status: newAudit.status,
-            description : newAudit.description,
+            description: newAudit.description,
             typeAuditId: typeAuditId,
             typeAudit: {
                 id: typeAuditId,
                 type: "string"
-            }
+            },
+            userId: userId
+            
         };
         /*addCheckList(newCheckList: any): Observable<any> {
         const typeCheckListAuditId = newCheckList.typechecklist_id ? newCheckList.typechecklist_id : null;
@@ -57,7 +62,6 @@ export class AuditService {
             type: "string"
           }
         };*/
-
         return this.http.post<any>(`${this.apiUrl}`, addData, this.httpOptions).pipe(
             catchError(this.handleError)
         );
@@ -90,17 +94,23 @@ export class AuditService {
         // Extraire l'ID et le type du typeCheckListAudit du formulaire mis à jour
         const typeAuditId = updatedAudit.typeAuditId ? updatedAudit.typeAuditId : null;
         const typeAuditType = updatedAudit.typeAudit ? updatedAudit.typeAudit.type : null;
-
+        const user_id = updatedAudit.auditor_id ? updatedAudit.auditor_id : null;
+        const userAudit = updatedAudit.users ? updatedAudit.users.username : null;
         // Créer un objet avec les données mises à jour, y compris typeCheckListAudit
         const updatedData = {
-            nomAudit: updatedAudit.nomAudit,
+            nomAudit: "string",
             dateAudit: updatedAudit.dateAudit,
             status: updatedAudit.status,
-            description : updatedAudit.description,
+            description: updatedAudit.description,
             typeAuditId: typeAuditId,
             typeAudit: {
                 id: typeAuditId,
                 type: "string"
+            },
+            userId: user_id,
+            user: {
+                id: user_id,
+                username: "string"
             }
         };
         // Envoyer la requête PUT avec les données mises à jour
@@ -126,7 +136,6 @@ export class AuditService {
           type: "string"
         }
       };*/
-
     private get httpOptions() {
         return {
             headers: new HttpHeaders({
@@ -137,11 +146,11 @@ export class AuditService {
 
 
 
-    GetAllAuditeur(){
+    GetAllAuditeur() {
         return this.http.get<any>(this.apiauth);
 
     }
-    editAudit(id:number){
+    editAudit(id: number) {
         //this.audit=this.audits.find(p=> p.id==id)!;
         //return this.audit;
         return this.http.get<AuditModel>(`${this.apiUrl}/${id}`);
@@ -150,7 +159,7 @@ export class AuditService {
 
 
 
-    getAuditsByDate(date:string) {
+    getAuditsByDate(date: string) {
         const parsedDate = new Date(date);
         const formattedDate = parsedDate.toISOString();
         return this.http.get<AuditModel[]>(`${this.apiUrl}/byDate?date=${formattedDate}`);

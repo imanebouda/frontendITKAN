@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ConstatModel } from '../../../../models/constat.model';
 import { AuditModel } from '../../../../models/audit.model';
 import { ConstatService } from '../../../../services/AuditServices/constat.service';
-import { AuditService } from '../../../../services/AuditServices/audit.service';
+import { AuditService } from 'src/app/services/AuditServices/audit.service';
 
 @Component({
     selector: 'app-add-constat',
