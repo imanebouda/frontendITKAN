@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { QuestionModel } from 'src/app/models/question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -105,5 +106,8 @@ export class QuestionService {
         'Content-Type': 'application/json'
       })
     };
+  }
+  getQuestionsByChecklistAuditId(checklistAuditId: number): Observable<QuestionModel[]> {
+    return this.http.get<QuestionModel[]>(`${this.apiUrl}/GetCheckListAuditsByCheckListId/${checklistAuditId}`);
   }
 }

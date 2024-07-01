@@ -1,48 +1,28 @@
 import { Injectable } from '@angular/core';
-import { ConstatModel } from '../../models/constat.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
-
-const httpOptions = {
-    headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-    })
-};
+import { ConstatModel } from 'src/app/models/constat.model';
+import { TypeContat } from 'src/app/models/type-contat.model';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ConstatService {
-    private apiUrl = 'https://localhost:44305/api/Constat';
+    private baseUrl = 'https://localhost:44305/api/Constat';
+  private typeConstatUrl = 'https://localhost:44305/api/TypeConstat';
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
-    constatList() {
-        return this.http.get<ConstatModel[]>(this.apiUrl);
-    }
+  getConstats(): Observable<ConstatModel[]> {
+    return this.http.get<ConstatModel[]>(this.baseUrl);
+  }
 
-    addConstat(newConstat: ConstatModel) {
-        return this.http.post<ConstatModel>(this.apiUrl, newConstat, httpOptions);
-    }
+  createConstat(constat: ConstatModel): Observable<ConstatModel> {
+    return this.http.post<ConstatModel>(this.baseUrl, constat);
+  }
 
-    deleteConstat(constatData: any) {
-        return this.http.post<any>(`${this.apiUrl}/DeleteConstat`, constatData, httpOptions)
-            .pipe(
-                catchError(this.handleError)
-            );
-    }
-
-    private handleError(error: any) {
-        console.error('An error occurred:', error);
-        return throwError(error);
-    }
-
-    editConstat(id: number) {
-        return this.http.get<ConstatModel>(`${this.apiUrl}/${id}`);
-    }
-
-    updateConstat(id: number, newConstat: ConstatModel) {
-        return this.http.put<any>(`${this.apiUrl}/${id}`, newConstat);
-    }
+  getTypeConstats(): Observable<TypeContat[]> {
+    return this.http.get<TypeContat[]>(this.typeConstatUrl);
+  }
 }

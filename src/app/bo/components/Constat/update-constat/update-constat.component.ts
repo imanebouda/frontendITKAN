@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/**import { Component, OnInit } from '@angular/core';
 import { ConstatModel } from '../../../../models/constat.model';
 import { ConstatService } from '../../../../services/AuditServices/constat.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -34,4 +34,4 @@ export class UpdateConstatComponent implements OnInit {
         });
     }
 }
-
+**/

@@ -26,8 +26,8 @@ import { AddAuditComponent } from './bo/components/audit/add-audit/add-audit.com
 import { ListAuditComponent } from './bo/components/audit/list-audit/list-audit.component';
 import { UpdateAuditComponent } from './bo/components/audit/update-audit/update-audit.component';
 import { AddConstatComponent } from './bo/components/Constat/add-constat/add-constat.component';
-import { ListConstatComponent } from './bo/components/Constat/list-constat/list-constat.component';
-import { UpdateConstatComponent } from './bo/components/Constat/update-constat/update-constat.component';
+//import { ListConstatComponent } from './bo/components/Constat/list-constat/list-constat.component';
+//import { UpdateConstatComponent } from './bo/components/Constat/update-constat/update-constat.component';
 import { AddSiteAuditComponent } from './bo/components/site-audit/add-site-audit/add-site-audit.component';
 import { ListSiteAuditComponent } from './bo/components/site-audit/list-site-audit/list-site-audit.component';
 import { UpdateSiteAuditComponent } from './bo/components/site-audit/update-site-audit/update-site-audit.component';
@@ -59,7 +59,32 @@ import { UpdateChecklistComponent } from './bo/components/check_list/update-chec
 registerLocaleData(localeFr);
 
 @NgModule({
-    declarations: [AppComponent,UpdateChecklistComponent,AppComponent,AddChecklistComponent,ListChecklistComponent,UpdateCheckListComponent,ListCheckListComponent, HomeComponent, NotfoundComponent, ProcObjectifsComponent, ProcedureComponent, IndicateurComponent, LeadershipComponent, AddAuditComponent, ListAuditComponent, UpdateAuditComponent, AddConstatComponent, ListConstatComponent, UpdateConstatComponent, AddSiteAuditComponent, ListSiteAuditComponent, UpdateSiteAuditComponent, AddCheckListComponent, ListCheckListComponent,DetailAuditComponent,ProgrammeAuditComponent],
+    declarations: [
+        AppComponent,
+        UpdateChecklistComponent,
+        AppComponent,
+        AddChecklistComponent,
+        AddCheckListComponent,
+        ListChecklistComponent,
+        UpdateCheckListComponent,
+        ListCheckListComponent,
+        HomeComponent,
+        NotfoundComponent,
+        ProcObjectifsComponent,
+        ProcedureComponent,
+        IndicateurComponent,
+        LeadershipComponent,
+        AddAuditComponent,
+        ListAuditComponent,
+        UpdateAuditComponent,
+        AddConstatComponent,
+        /* ListConstatComponent, UpdateConstatComponent,*/
+        AddSiteAuditComponent,
+        ListSiteAuditComponent,
+        UpdateSiteAuditComponent,
+        DetailAuditComponent,
+        ProgrammeAuditComponent
+    ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
@@ -69,16 +94,16 @@ registerLocaleData(localeFr);
         FileUploadModule,
         NgxExtendedPdfViewerModule,
         BrowserModule,
-     FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule, // Ajoutez cette ligne
-    DialogModule,
-    ButtonModule,
-    RippleModule,
-    InputTextModule,
-    DropdownModule,
-    MessageModule,
-    TooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule, // Ajoutez cette ligne
+        DialogModule,
+        ButtonModule,
+        RippleModule,
+        InputTextModule,
+        DropdownModule,
+        MessageModule,
+        TooltipModule
     // PrimeNG modules
         
         //GestionAuditModule

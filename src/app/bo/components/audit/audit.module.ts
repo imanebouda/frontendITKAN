@@ -15,8 +15,8 @@ import { ProgrammeAuditComponent } from './programme-audit/programme-audit.compo
 
 
     
-    GestionAuditComponent,
-           DropdownComponent,
+   // GestionAuditComponent,
+          // DropdownComponent,
            ProgrammeAuditComponent
   ],
     imports: [

@@ -31,8 +31,10 @@ export class ListAuditComponent implements OnInit {
     @ViewChild('updateModal') updateModal: ElementRef;
     @ViewChild('addModal') addModal: ElementRef;
 
-    constructor(private auditService: AuditService, private http: HttpClient) {}
-
+    constructor(
+        private auditService: AuditService, 
+        private http: HttpClient      
+    ) {}
     ngOnInit(): void {
         this.getAllAuditeur();
         this.initializeForm();

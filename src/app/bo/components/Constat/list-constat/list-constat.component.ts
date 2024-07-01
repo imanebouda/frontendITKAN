@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+/*import { Component } from '@angular/core';
 import { ConstatModel } from '../../../../models/constat.model';
 import { ConstatService } from '../../../../services/AuditServices/constat.service';
 import { Subscription } from 'rxjs';
@@ -36,4 +36,4 @@ export class ListConstatComponent {
                 }
             );
     }
-}
+}*/

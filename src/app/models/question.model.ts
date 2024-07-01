@@ -1,4 +1,5 @@
 import { TypeCheckListModel } from "./type-check-list.model";
+import { ChecklistModel } from "./check_list.model";
 
 export class QuestionModel{
     id !: number ;
@@ -9,5 +10,6 @@ export class QuestionModel{
     typechecklist_id !: number;
     //Audit?: AuditModel;
     typeCheckListAudit?: TypeCheckListModel;
-
+    CheckListAuditId: number;
+    CheckListAudit : ChecklistModel;
 }

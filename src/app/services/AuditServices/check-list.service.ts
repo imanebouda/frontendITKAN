@@ -11,6 +11,7 @@ import { TypeAuditModel } from 'src/app/models/type-audit.model';
 })
 export class ChecklistService {
     private apiUrl = 'https://localhost:44305/api/Check_list';
+    private apiUrl1 = 'https://localhost:44305/api';
     private typeAuditUrl = `${environment.API_BASE_URL_GENERAL}TypeAudit`;
 
     constructor(private http: HttpClient) { }
@@ -100,4 +101,7 @@ export class ChecklistService {
             })
         };
     }
+  /*   getChecklistsByChecklistId(checklistId: number): Observable<ChecklistModel[]> {
+      return this.http.get<ChecklistModel[]>(`${this.apiUrl1}/ChecklistAudit/GetCheckListAuditsByCheckListId/${checklistId}`);
+    }*/
 }

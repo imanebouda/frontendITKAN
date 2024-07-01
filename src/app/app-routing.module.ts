@@ -7,9 +7,9 @@ import { AutorisedGuard } from './services/guard/autorised.guard';
 import {ListAuditComponent} from "./bo/components/audit/list-audit/list-audit.component";
 import {AddAuditComponent} from "./bo/components/audit/add-audit/add-audit.component";
 import {AddConstatComponent} from "./bo/components/Constat/add-constat/add-constat.component";
-import {ListConstatComponent} from "./bo/components/Constat/list-constat/list-constat.component";
+//import {ListConstatComponent} from "./bo/components/Constat/list-constat/list-constat.component";
 import {UpdateAuditComponent} from "./bo/components/audit/update-audit/update-audit.component";
-import {UpdateConstatComponent} from "./bo/components/Constat/update-constat/update-constat.component";
+//import {UpdateConstatComponent} from "./bo/components/Constat/update-constat/update-constat.component";
 
 import { AddSiteAuditComponent } from './bo/components/site-audit/add-site-audit/add-site-audit.component';
 import { ListSiteAuditComponent } from './bo/components/site-audit/list-site-audit/list-site-audit.component';
@@ -139,14 +139,14 @@ import { ListChecklistComponent } from './bo/components/check_list/list-check-li
                             path: 'detailAudit/:id',
                             component: DetailAuditComponent ,
                         },
-                        {
+                     /*   {
                             path: 'editconstat/:id',
                             component: UpdateConstatComponent,
                         },
                         {
                             path: 'listconstat',
                             component: ListConstatComponent,
-                        },
+                        },*/
                         {
                             path: 'addconstat',
                             component: AddConstatComponent,
@@ -166,11 +166,28 @@ import { ListChecklistComponent } from './bo/components/check_list/list-check-li
                         {
                             path: 'listCheckList',
                             component: ListCheckListComponent,
-                        },
-                        {
+                          },
+                          {
+                            path: 'listCheckList/:checklistAuditId',
+                            component: ListCheckListComponent,
+                          },
+                          {
                             path: 'list_Check_List',
                             component: ListChecklistComponent,
-                        },
+                          },
+                          {
+                            path: '',
+                            redirectTo: '/list_Check_List',
+                            pathMatch: 'full',
+                          },
+                          {
+                            path: '**',
+                            redirectTo: '/list_Check_List',
+                          },  
+                          { path: 'listChecklist/:checklistAuditId', component: ListChecklistComponent },
+                          { path: 'listChecklist', component: ListChecklistComponent },
+                          { path: 'listCheckList/:checklistAuditId', component: ListCheckListComponent },
+                          { path: '', redirectTo: '/listChecklist', pathMatch: 'full' },                
                         {
                             path: 'addCheckList',
                             component: AddCheckListComponent,
@@ -191,8 +208,9 @@ import { ListChecklistComponent } from './bo/components/check_list/list-check-li
                             path: 'ecart',
                             component: DropdownComponent ,
                         },
-
-
+                        { path: 'listChecklist/:checklistAuditId', 
+                            component: ListCheckListComponent 
+                        },
                         {
                             path: 'Indicateurs',
                             canActivate: [AuthGuard, AutorisedGuard],
