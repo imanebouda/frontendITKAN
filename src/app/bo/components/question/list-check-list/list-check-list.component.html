@@ -56,14 +56,7 @@
           <div class="cm-action-btn">
             <i pButton pRipple class="p-button-rounded p-button-info mr-2" icon="pi pi-pencil" tooltipPosition="left" (click)="openUpdateDialog(checkList)"></i>
             <i pButton pRipple class="p-button-rounded p-button-danger" icon="pi pi-trash" tooltipPosition="right" (click)="deleteCheckList(checkList)"></i>
-
-
-
-              <i pButton type="button" pRipple icon="pi pi-save" tooltip="Save" tooltipPosition="right" (click)="showDialog = true"></i>
-
-
-
-
+            <i pButton pRipple class="p-button-rounded p-button-primary ml-2" icon="pi pi-plus" tooltipPosition="left" (click)="openAffectConstatModal(checkList)"></i>
           </div>
         </td>
       </tr>
@@ -114,6 +107,35 @@
   </div>
 </div>
 
+<!-- Modal d'ajout de constat -->
+<div #constatModal class="modal fade" id="constatModal" tabindex="-1" aria-labelledby="constatModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="constatModalLabel">Ajouter Constat</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="constatForm">
+          <div class="mb-3">
+            <label for="constat" class="form-label">Constat</label>
+            <input type="text" class="form-control" id="constat" formControlName="constat">
+          </div>
+          <div class="mb-3">
+            <label for="typeConstatId" class="form-label">Type de Constat</label>
+            <select class="form-select" id="typeConstatId" formControlName="typeConstatId">
+              <option *ngFor="let type of typeConstats" [value]="type.id">{{ type.type }}</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="saveConstat()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <div class="flex justify-content-center mt-3">
